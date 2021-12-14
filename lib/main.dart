@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'ui/usm_viewmodel.dart';
 import 'ui/ubuscar.dart';
 import 'ui/uadd.dart';
 
 
-void main() => runApp(const MyApp());
+Future main() async {
+  await dotenv.load(fileName: "assets/dotenv.json");
+  runApp(const MyApp());
+}
+
+//main() {
+//  runApp(const MyApp());
+//}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,8 +45,8 @@ class MyHomePage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 1000),
         child: Container(
-         color: Colors.black,
-          child: Padding(
+             color: Colors.black,
+             child: Padding(
              padding: EdgeInsets.all(20),
              child: Row(
              children: [
@@ -47,32 +55,68 @@ class MyHomePage extends StatelessWidget {
                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                       InkWell(
+                     Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                          hoverColor: Color(0xff337ab7),
                           onTap: () { model.initmenu(true);},
-                              child: const Text(
+                          child: const Text(
                                     'Buscar',
-                                     style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                                ),
                        ),
-                              SizedBox(width: screenSize.width / 20),
-                        InkWell(
+                     ),
+                    SizedBox(width: screenSize.width / 20),
+                   Material(
+                     color: Colors.transparent,
+                     child: InkWell(
+                          hoverColor: Color(0xff337ab7),
                           onTap: () { model.initmenu(false);},
-                                child: const Text(
+                          child: const Text(
                                      'Añadir',
                                       style: TextStyle(color: Colors.white, fontSize: 18),
                                     ),
                             ),
+                           ),
                         ],
                 ))],
               )))),
 
-      body: Container( child:  model.boolbuscar ? Center(child:  widgetUbuscar(model, context, screenSize.width, screenSize.height)):
-      Center(child:  widgetUAdd(model, context, screenSize.width, screenSize.height))
-      )
+      body: SafeArea(child: LayoutBuilder(builder: (context, constraints) {
+          return Column(children: [
+            Center(child:Container(
+              height: 10,
+            ),
+          ),
+            Center(child:Container(
+              decoration: BoxDecoration(
+                color: Color(0xff337ab7),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(12.0), topRight:  Radius.circular(12.0)),
+
+              ),
+              width: constraints.maxWidth * 0.95,
+              height: constraints.maxHeight * 0.1,
+              child: model.boolbuscar ? Center(child: const Text('Buscar Ubicaciones Pedido', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))): Center(child: const Text('Añadir Ubicación', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))),
+            ),
+            ),
+            Center(child:Container(
+              decoration: BoxDecoration(
+                color: Color(0xffdff0d8),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12.0), bottomRight:  Radius.circular(12.0)),
+                border: Border.all(
+                  color: Color(0xff337ab7),
+                ),
+              ),
+              width: constraints.maxWidth * 0.95,
+              height: constraints.maxHeight * 0.87,
+              child: model.boolbuscar ? widgetUbuscar(model, context, constraints.maxHeight * 0.80, constraints.maxWidth * 0.90, screenSize.height): widgetUAdd(model, context, screenSize.width, screenSize.height),
+            ),
+            ),
+
+         ]);
+      })),
    ));
   }
-
-
 
 }
 
