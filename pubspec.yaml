@@ -40,7 +40,7 @@ dependencies:
   path_provider: ^2.0.6
   connectivity: ^3.0.6
   syncfusion_flutter_datagrid: ^19.3.55
-  qr_flutter: ^4.0.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +65,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+     - assets/images/ic_qr.png
+     - assets/dotenv
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

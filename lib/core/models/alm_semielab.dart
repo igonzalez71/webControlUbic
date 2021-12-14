@@ -1,16 +1,17 @@
 //Clases que contienen la estructura de los JSON que se utilizaran para la llamada a las APIS
 //tanto de respuesta a los GET, como de llamada a los POST
 class Alm_semielab {
-  final int id;
-  final int idopt;
-  final int forma;
-  final String ccoste;
-  final String idproy;
-  final int npalet;
-  final String nave;
-  final String pasillo;
+  int id;
+  int idopt;
+  int forma;
+  String ccoste;
+  String idproy;
+  int npalet;
+  String nave;
+  String pasillo;
+  String accion;
   //Constructor
-  Alm_semielab({required this.id, required this.idopt, required this.forma, required this.ccoste, required this.idproy, required this.npalet, required this.nave, required this.pasillo });
+  Alm_semielab({required this.id, required this.idopt, required this.forma, required this.ccoste, required this.idproy, required this.npalet, required this.nave, required this.pasillo, required this.accion });
 
   factory Alm_semielab.fromJson(Map<String, dynamic> json) {
     return Alm_semielab(
@@ -22,6 +23,7 @@ class Alm_semielab {
       npalet: json['Npalet'],
       nave: json['Nave'],
       pasillo: json['Pasillo'],
+      accion: "",
     );
   }
 }
